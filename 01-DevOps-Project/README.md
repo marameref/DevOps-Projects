@@ -61,9 +61,32 @@ Creating a Global AMI involves installing necessary agents and software on an EC
    sudo installer -pkg AWSCLIV2.pkg -target /
    aws --version
    ```
+  - Use curl or wget to download the Linux installer for AWS CLI:
+  
+   ```bash
+   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+   unzip awscliv2.zip  # unzip downloaded file
+   aws --version    # verify installation
+   ```
 
 2. **Install CloudWatch Agent**:
+   - Download the Amazon CloudWatch Agent Package
    - Install CloudWatch Agent to monitor your EC2 instances.
+   - Use curl or wget to download the package directly (For Ubuntu)
+
+   ```bash
+   curl -O https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
+   sudo dpkg -i amazon-cloudwatch-agent.deb  # Install the downloaded .deb package using dpkg
+   amazon-cloudwatch-agent --version   # Verify installation
+   # Configure the Agent
+   sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+   ### 
+   sudo systemctl start amazon-cloudwatch-agent  # Start Cloudwatch Agent
+   sudo systemctl enable amazon-cloudwatch-agent  # Enable agent on boot
+   sudo systemctl status amazon-cloudwatch-agent  # Check the status
+   ```
+
+   - RHEL/CentOS-based system
 
    ```bash
    sudo yum install amazon-cloudwatch-agent
